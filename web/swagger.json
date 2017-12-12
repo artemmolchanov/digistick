@@ -1,0 +1,292 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Digistick API",
+    "version": "1.3.0",
+    "contact": {
+      "name": "Live Typing",
+      "email": "v.mikhal@ltst.ru",
+      "url": "http://livetyping.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/sticker-pack/": {
+      "get": {
+        "summary": "Get sticker packs list",
+        "description": "Get list",
+        "operationId": "getStickerPacksList",
+        "tags": [
+          "Sticker packs"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Your token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "My info",
+            "schema": {
+              "$ref": "#/definitions/sticker-pack-list"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/sticker/{id}": {
+      "get": {
+        "summary": "Get stickers list",
+        "description": "Get list",
+        "operationId": "getStickersList",
+        "tags": ["Stickers"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Your token",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "ID of sticker pack to return sticker",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "666",
+            "headers": {
+              "x-pagination-current-page": {
+                  "type": "integer",
+                  "description": "The number of requests left for the time window"
+              },
+              "x-pagination-page-count": {
+                  "type": "integer",
+                  "description": "The number of requests left for the time window"
+              },
+              "x-pagination-per-page": {
+                  "type": "integer",
+                  "description": "The number of requests left for the time window"
+              },
+              "x-pagination-total-count": {
+                  "type": "integer",
+                  "description": "The number of requests left for the time window"
+              }
+            }
+          },
+
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/token/create": {
+      "get": {
+        "summary": "Get token",
+        "description": "Get token",
+        "operationId": "getToken",
+        "tags": [
+          "Token"
+        ],
+        "responses": {
+          "200": {
+            "description": "Token",
+            "schema": {
+              "$ref": "#/definitions/token"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/email": {
+      "post": {
+        "summary": "Give  email",
+        "description": "Give  email",
+        "operationId": "giveEmail",
+        "tags": [
+          "Email"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "Your email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Your token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email",
+            "schema": {
+              "$ref": "#/definitions/email"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/sticker-pack/purchase/": {
+      "post": {
+        "summary": "Create purchase",
+        "description": "Create purchase",
+        "operationId": "createPurchase",
+        "tags": [
+          "Purchase"
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "body",
+            "description": "itemId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "token",
+            "in": "body",
+            "description": "token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bought",
+            "in": "body",
+            "description": "bought",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Your token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email",
+            "schema": {
+              "$ref": "#/definitions/email"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sticker-pack-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/sticker-pack"
+      }
+    },
+    "sticker-pack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "My pack"
+        },
+        "description": {
+          "type": "string",
+          "example": "John"
+        },
+        "price": {
+          "type": "number",
+          "example": 0.99
+        }
+      }
+    },
+    "sticker-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/sticker"
+      }
+    },
+    "sticker": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "filePath": {
+          "type": "string",
+          "example": "StickerPacks/StickerPack196/89217b.jpg"
+        },
+        "itemId": {
+          "type": "integer",
+          "example": "196"
+        },
+        "isMain": {
+          "type": "integer",
+          "example": 1
+        },
+        "modelName": {
+          "type": "string",
+          "example": "StickerPack"
+        },
+        "urlAlias": {
+          "type": "string",
+          "example": "98963f33bf-1"
+        },
+        "name": {
+          "type": "string",
+          "example": ""
+        }
+      }
+    },
+    "token": {
+      "type": "string",
+      "example": "kILZLl4qlHBQguDhJG-cyowFgnvOi9f5ECMEq6pOJf3se8zrUw_9CA-81oFKleXR"
+    },
+    "email": {
+      "type": "string",
+      "example": "admin@gmail.com"
+    }
+  }
+}
